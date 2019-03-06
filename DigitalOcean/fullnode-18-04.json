@@ -1,0 +1,47 @@
+{
+  "variables": {
+    "do_api_token": "",
+    "region": "sgp1"
+  },
+  "provisioners": [
+    {
+      "type":  "shell",
+      "inline": [
+        "apt update -y",
+        "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -",
+        "sudo add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\"",
+        "apt update -y",
+        "DEBIAN_FRONTEND=noninteractive apt upgrade -q -y -u  -o Dpkg::Options::=\"--force-confdef\" --allow-downgrades --allow-remove-essential --allow-change-held-packages --allow-change-held-packages --allow-unauthenticated",
+        "apt install docker-ce docker-ce-cli containerd.io python3-pip -y",
+        "curl -L \"https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose",
+        "chmod +x /usr/local/bin/docker-compose",
+        "pip3 install create-tomochain-masternode",
+        "yes | ufw enable",
+        "ufw allow 22/tcp",
+        "ufw allow 30303/tcp",
+        "ufw allow 30303/udp",
+        "ufw reload",
+        "cat /dev/null > /var/log/alternatives.log",
+        "cat /dev/null > /var/log/auth.log",
+        "cat /dev/null > /var/log/cloud-init-output.log",
+        "cat /dev/null > /var/log/cloud-init.log",
+        "cat /dev/null > /var/log/dpkg.log",
+        "cat /dev/null > /var/log/kern.log",
+        "cat /dev/null > /var/log/ufw.log",
+        "cat /dev/null > $HOME/.ssh/authorized_keys",
+        "rm -rf /var/log/unattended-upgrades",
+        "rm -rf /var/log/cloud-init.log",
+        "bash -c \"$(curl -sSL https://raw.githubusercontent.com/digitalocean/marketplace-partners/master/marketplace_validation/img_check.sh)\""
+      ]
+    }
+  ],
+  "builders": [{
+    "type": "digitalocean",
+    "api_token": "{{user `do_api_token`}}",
+    "image": "ubuntu-18-04-x64",
+    "region": "{{user `region`}}",
+    "size": "s-1vcpu-1gb",
+    "snapshot_name": "tomochainnode-ubuntu-18-04",
+    "ssh_username": "root"
+  }]
+}
