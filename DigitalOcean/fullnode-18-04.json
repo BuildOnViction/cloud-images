@@ -1,6 +1,6 @@
 {
   "variables": {
-    "do_api_token": "",
+    "do_api_token": "{{env `DO_API_TOKEN`}}",
     "region": "sgp1"
   },
   "provisioners": [
