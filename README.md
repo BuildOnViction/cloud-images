@@ -1,4 +1,4 @@
-# node-cloud-image
+# cloud-images
 
 This repo holds the TomoChain cloud images for diverse providers.
 
