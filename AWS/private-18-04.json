@@ -1,0 +1,31 @@
+{
+    "variables": {
+      "aws_access_key": "{{env `AWS_ACCESS_KEY`}}",
+      "aws_account_id": "{{env `AWS_ACCOUNT_ID`}}",
+      "aws_s3_bucket": "{{env `AWS_S3_BUCKET`}}",
+      "aws_secret_key": "{{env `AWS_SECRET_KEY`}}",
+      "aws_x509_cert_path": "{{env `AWS_X509_CERT_PATH`}}",
+      "aws_x509_key_path": "{{env `AWS_X509_KEY_PATH`}}"
+    },
+    "provisioners": [
+      {
+        "type":  "shell",
+        "inline": [
+          "echo draft"
+        ]
+      }
+    ],
+    "builders": [{
+      "access_key":  "{{user `aws_access_key`}}",
+      "account_id":  "{{user `aws_account_id`}}",
+      "ami_name": "tomochain-private-{{isotime "2006-01-02" | clean_resource_name}}",
+      "instance_type": "a1.large",
+      "region": "ap-southeast-1",
+      "s3_bucket": "{{user `aws_s3_bucket`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "source_ami": "ami-0355471dc9f264631",
+      "x509_cert_path": "{{user `aws_x509_cert_path`}}",
+      "x509_key_path": "{{user `aws_key_path`}}"
+    }]
+}
+  
