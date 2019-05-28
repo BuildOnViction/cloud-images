@@ -18,7 +18,7 @@
     "builders": [{
       "access_key":  "{{user `aws_access_key`}}",
       "account_id":  "{{user `aws_account_id`}}",
-      "ami_name": "tomochain-private-{{isotime "2006-01-02" | clean_resource_name}}",
+      "ami_name": "tomochain-private-{{isotime \"2006-01-02\" | clean_resource_name}}",
       "instance_type": "a1.large",
       "region": "ap-southeast-1",
       "s3_bucket": "{{user `aws_s3_bucket`}}",
