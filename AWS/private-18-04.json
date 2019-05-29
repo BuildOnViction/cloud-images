@@ -11,13 +11,22 @@
       {
         "type":  "shell",
         "inline": [
-          "echo draft"
+          "apt -y update",
+          "apt -y upgrade",
+          "apt -y install git",
+          "git clone https://github.com/tomochain/tomochain",
+          "cd tomochain",
+          "make all",
+          "sudo mv build/bin/puppeth /usr/local/bin/",
+          "sudo mv build/bin/tomo /usr/local/bin/"
         ]
       }
     ],
     "builders": [{
-      "access_key":  "{{user `aws_access_key`}}",
-      "account_id":  "{{user `aws_account_id`}}",
+      "type": "amazon-instance",
+      "ssh_username": "ubuntu",
+      "access_key": "{{user `aws_access_key`}}",
+      "account_id": "{{user `aws_account_id`}}",
       "ami_name": "tomochain-private-{{isotime \"2006-01-02\" | clean_resource_name}}",
       "instance_type": "a1.large",
       "region": "ap-southeast-1",
@@ -25,7 +34,7 @@
       "secret_key": "{{user `aws_secret_key`}}",
       "source_ami": "ami-0355471dc9f264631",
       "x509_cert_path": "{{user `aws_x509_cert_path`}}",
-      "x509_key_path": "{{user `aws_key_path`}}"
+      "x509_key_path": "{{user `aws_x509_key_path`}}"
     }]
 }
   
