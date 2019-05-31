@@ -7,9 +7,9 @@
       {
         "type":  "shell",
         "inline": [
-          "sudo apt -y update",
-          "sudo apt -y upgrade",
-          "sudo apt -y install git build-essential golang",
+          "sudo apt-get -y update",
+          "sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::=\"--force-confdef\" -o Dpkg::Options::=\"--force-confold\" dist-upgrade",
+          "sudo apt-get -y install git build-essential golang-go",
           "git clone https://github.com/tomochain/tomochain",
           "cd tomochain",
           "make all",
@@ -22,7 +22,7 @@
       "type": "amazon-ebs",
       "ssh_username": "ubuntu",
       "access_key": "{{user `aws_access_key`}}",
-      "ami_name": "tomochain-private-{{isotime \"2006-01-02\" | clean_resource_name}}",
+      "ami_name": "tomochain-private-{{isotime \"2006-01-02\" | clean_resource_name}}-{{timestamp}}",
       "instance_type": "t2.medium",
       "region": "ap-southeast-1",
       "secret_key": "{{user `aws_secret_key`}}",
