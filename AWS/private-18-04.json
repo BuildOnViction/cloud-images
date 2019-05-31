@@ -1,11 +1,7 @@
 {
     "variables": {
       "aws_access_key": "{{env `AWS_ACCESS_KEY`}}",
-      "aws_account_id": "{{env `AWS_ACCOUNT_ID`}}",
-      "aws_s3_bucket": "{{env `AWS_S3_BUCKET`}}",
-      "aws_secret_key": "{{env `AWS_SECRET_KEY`}}",
-      "aws_x509_cert_path": "{{env `AWS_X509_CERT_PATH`}}",
-      "aws_x509_key_path": "{{env `AWS_X509_KEY_PATH`}}"
+      "aws_secret_key": "{{env `AWS_SECRET_KEY`}}"
     },
     "provisioners": [
       {
@@ -13,31 +9,24 @@
         "inline": [
           "sudo apt -y update",
           "sudo apt -y upgrade",
-          "sudo apt -y install git build-essential golang unzip ruby",
+          "sudo apt -y install git build-essential golang",
           "git clone https://github.com/tomochain/tomochain",
           "cd tomochain",
           "make all",
           "sudo mv build/bin/puppeth /usr/local/bin/",
-          "sudo mv build/bin/tomo /usr/local/bin/",
-          "wget http://s3.amazonaws.com/ec2-downloads/ec2-ami-tools.zip",
-          "sudo mkdir -p /usr/local/ec2",
-          "sudo unzip ec2-ami-tools.zip -d /usr/local/ec2"
+          "sudo mv build/bin/tomo /usr/local/bin/"
         ]
       }
     ],
     "builders": [{
-      "type": "amazon-instance",
+      "type": "amazon-ebs",
       "ssh_username": "ubuntu",
       "access_key": "{{user `aws_access_key`}}",
-      "account_id": "{{user `aws_account_id`}}",
       "ami_name": "tomochain-private-{{isotime \"2006-01-02\" | clean_resource_name}}",
       "instance_type": "t2.medium",
       "region": "ap-southeast-1",
-      "s3_bucket": "{{user `aws_s3_bucket`}}",
       "secret_key": "{{user `aws_secret_key`}}",
-      "source_ami": "ami-0dad20bd1b9c8c004",
-      "x509_cert_path": "{{user `aws_x509_cert_path`}}",
-      "x509_key_path": "{{user `aws_x509_key_path`}}"
+      "source_ami": "ami-0dad20bd1b9c8c004"
     }]
 }
   
