@@ -12,8 +12,7 @@
           "sudo apt-get -y install git build-essential golang-go",
           "git clone https://github.com/tomochain/tomochain",
           "cd tomochain",
-          "make all",
-          "sudo mv build/bin/puppeth /usr/local/bin/",
+          "make",
           "sudo mv build/bin/tomo /usr/local/bin/"
         ]
       }
