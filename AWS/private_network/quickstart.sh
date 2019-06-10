@@ -30,25 +30,20 @@ else
     echo "! Please provide a network name"
     exit 1
 fi
-
-# create the container with the right startup options
-echo "  Creating your masternode container"
-# ask for private key
+# we need the private key for the node container
 echo "? Please enter your masternode coinbase private key"
-private_key=$(read -sp "> (input is hidden) "); echo ""
-
-exit
-# this is not correct yet
+private_key=$(read -sp "> (hidden) "); echo ""
+echo "  Creating your masternode container"
+# use latest for now as custom genesis env var is not yet in a stable release
 docker create \
     --name "${1}01" \
     -e IDENTITY="${1}01" \
     -e PRIVATE_KEY="${private_key}" \
     -e NETWORK_ID="$(jq .config.chainId ${GENESIS_PATH})" \
-    -e VERBOSITY=3 \
-    -e GENESIS_PATH="/tomochain/genesis.json" \
+    -e VERBOSITY=4 \
+    -e GENESIS_PATH="./genesis.json" \
     -v ${GENESIS_PATH}:/tomochain/genesis.json \
-    tomochain/node:stable
-
+    tomochain/node:latest 1> /dev/null 2> error.log
 if [ $? -eq 0 ]
 then
     echo "  Container ${1}01 created"
