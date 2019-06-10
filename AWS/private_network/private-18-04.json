@@ -18,9 +18,24 @@
           "sudo chmod +x /usr/local/bin/docker-compose",
           "git clone https://github.com/tomochain/tomochain",
           "cd tomochain",
-          "make",
-          "sudo mv build/bin/tomo /usr/local/bin/"
+          "make puppeth",
+          "sudo mv build/bin/puppeth /usr/local/bin/"
         ]
+      },
+      {
+        "type": "file",
+        "source": "README.md",
+        "destination": "README.md"
+      }
+      {
+        "type": "file",
+        "source": "masternode.yml",
+        "destination": "masternode.yml"
+      }
+      {
+        "type": "file",
+        "source": "masternode.env",
+        "destination": "masternode.env"
       }
     ],
     "builders": [{

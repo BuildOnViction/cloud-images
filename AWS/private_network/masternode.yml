@@ -1,0 +1,27 @@
+version: "3.4"
+services:
+
+  masternode:
+    env_file:
+      -masternode.env
+    image: tomochain/node:$TAG
+    environment:
+      IDENTITY: $IDENTITY
+      PRIVATE_KEY: $PRIVATE_KEY
+      BOOTNODES: $BOOTNODES
+      NETWORK_ID: $NETWORK_ID
+      VERBOSITY: $VERBOSITY
+      NETSTATS_HOST: $STATS_HOST
+      NETSTATS_PORT: $STATS_PORT
+      WS_SECRET: $WS_SECRET
+    volumes:
+      - $DATA_LOCATION:/tomochain/data
+    networks:
+      - masternode
+    ports:
+      - 30303:30303/tcp
+      - 30303:30303/udp
+    restart: always
+
+networks:
+  masternode:
