@@ -26,12 +26,12 @@
         "type": "file",
         "source": "README.md",
         "destination": "README.md"
-      }
+      },
       {
         "type": "file",
         "source": "masternode.yml",
         "destination": "masternode.yml"
-      }
+      },
       {
         "type": "file",
         "source": "masternode.env",
