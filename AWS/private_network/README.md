@@ -2,7 +2,9 @@
 
 `[TODO]`
 
-# Usage
+## Usage
+
+### Genesis
 
 Create a genesis file with puppeth.
 
@@ -100,6 +102,7 @@ Extract the genesis from the puppeth file.
 ```bash
 jq .genesis $HOME/.puppeth/name_of_your_network > $HOME/genesis.json
 ```
+### Masternode
 
 Fill in the missing values in `masternode.env`:
 
