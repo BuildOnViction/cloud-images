@@ -114,6 +114,14 @@ jq .genesis $HOME/.puppeth/name_of_your_network > $HOME/genesis.json
 ```
 ### Masternode
 
+If you already generated a genesis on another server, copy it with scp.
+
+```bash
+scp user@my-first-masternode:./gensis.json $HOME/genesis.json
+```
+
+If not and this is your first server, see [genesis](#genesis).
+
 Fill in the missing values in `masternode.env`:
 
 - **TAG**
