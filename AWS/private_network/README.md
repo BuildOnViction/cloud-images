@@ -1,8 +1,18 @@
 # Private network image
 
-`[TODO]`
+This image contains all the requirements to run the different parts of a private network.
+
+A private network required at minimum 1 genesis file and 3 masternodes to work.
+
+You can also add:
+
+- A state page (display the current network activity)
+- A faucet (to generate coins easily)
 
 ## Usage
+
+- [Genesis](#genesis)
+- [Masternode](#masternode)
 
 ### Genesis
 
@@ -106,11 +116,61 @@ jq .genesis $HOME/.puppeth/name_of_your_network > $HOME/genesis.json
 
 Fill in the missing values in `masternode.env`:
 
-- TODO
+- **TAG**
+
+  This is the tag of the image used.
+  You'd normally only need `stable` so it's allready filled.
+
+- **IDENTITY**
+
+  This is the name of your node on the network.
+  Should be unique.
+
+- **PRIVATE_KEY**
+
+  This is the private key of the masternode account.
+  The account should only be used for this purpose.
+  
+- **BOOTNODES**
+
+  This is the list of bootnodes your node will connect to.
+  Should be a comma separated list of values without whitespaces.
+  
+- **GENESIS_PATH**
+
+  This is the path to your custom genesis file.
+  If you created it with pupper as instructed in the file, it will be in `./genesis.json`.
+  
+- **NETWORK_ID**
+
+  This is your private chain network id.
+  If you set it manually in your genesis, use this number.
+  If you let puppeth chose a random network id, you can find it back in the `genesis.json` file.
+  
+- **VERBOSITY**
+
+  This is the logging level used by your node.
+  1 is `FATAL`, 2 is `ERROR`, 3 is `INFO`, 4 is `DEBUG`, 5 and upper are `TRACE`.
+  
+- **STATS_HOST**
+
+  This is the address of the stats website for your node to report to.
+  
+- **STATS_PORT**
+
+  This is the port of the stats website for your node to connect to.
+  
+- **WS_SECRET**
+
+  This is the the secret required to use the stats website sebsocket.
+  
+- **DATA_LOCATION**
+
+  This is the location of the chaindata on your server.
+  It can be either a docker volume name or a file system absolute path.
 
 Start your node.
 
 ```bash
 docker-compose up -d -f masternode.yml
 ```
-
